@@ -1,0 +1,40 @@
+---
+server:
+  ingress:
+    # Enable an ingress resource for the Argo CD server
+    enabled: true
+    # Additional ingress annotations
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt-issuer-prod"
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+      ingress.kubernetes.io/ssl-redirect: "false"
+      acme.cert-manager.io/http01-edit-in-place: "true"      
+    # Defines which ingress controller will implement the resource
+    ingressClassName: "nginx"
+
+    # -- List of ingress hosts
+    ## Argo Ingress.
+    ## Hostnames must be provided if Ingress is enabled.
+    ## Secrets must be manually created in the namespace
+    hosts:
+      # - argocd.aks.equin0x.net
+      - argocd.aks.equin0x.net
+    # List of ingress paths
+    paths:
+      - /
+    # Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
+    pathType: Prefix
+
+    tls:
+      - secretName: argocd-cert
+        hosts:
+          # - argocd.aks.equin0x.net
+          - argocd.aks.equin0x.net
+
+    # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
+    https: false
+
+configs:
+  params:
+    server.insecure: true

@@ -1,0 +1,39 @@
+---
+replicaCount: 1
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+  portName: http
+  annotations: {}
+  ## Limit load balancer source ips to list of CIDRs (where available)
+  # loadBalancerSourceRanges: []
+
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-issuer-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    ingress.kubernetes.io/ssl-redirect: "false"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+  hosts:
+    # - host: privatebin.aks.equin0x.net
+    #   paths:
+    #     - path: /
+    #       pathType: Prefix
+    - host: privatebin.aks-dev.equin0x.net
+      paths:
+        - path: /
+          pathType: Prefix
+
+  tls:
+    - hosts:
+        # - privatebin.aks.equin0x.net
+        - privatebin.aks-dev.equin0x.net
+      secretName: privatebin-cert

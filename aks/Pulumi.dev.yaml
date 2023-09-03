@@ -1,0 +1,10 @@
+config:
+  aks:environment: dev
+  aks:rg: pulumi-py-aks-dev
+  aks:kubernetesClusterName: pulumi-py-aks-dev
+  aks:kubernetesVersion: 1.27.3
+  aks:kubernetesNodeSize: Standard_DS2_v2
+  aks:kubernetesNodeCount: 1
+  aks:prefixForDns: pulumi
+  aks:mgmtGroupId: ""
+  azure-native:location: switzerlandnorth

@@ -1,0 +1,4 @@
+name: aks
+runtime:
+  name: python
+description: A Python program to deploy a Kubernetes cluster on Azure
